@@ -11,7 +11,7 @@
 
 import tkinter as tk
 from tkinter import ttk, messagebox
-import vobject
+import os
 
 contacts = []
 
@@ -32,10 +32,13 @@ def create_vcf():
         vcard_data += f"TEL:{number}\n"
         vcard_data += f"END:VCARD\n"
 
-    with open("contacts.vcf", "w", encoding='utf-8') as vcf_file:
+    desktop_path = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop')
+    vcf_file_path = os.path.join(desktop_path, "contacts.vcf")
+
+    with open(vcf_file_path, "w", encoding='utf-8') as vcf_file:
         vcf_file.write(vcard_data)
 
-    messagebox.showinfo("Success", "VCF file created for all contacts")
+    messagebox.showinfo("Success", f"VCF file created on the desktop: {vcf_file_path}")
 
 
 def add_contact():
